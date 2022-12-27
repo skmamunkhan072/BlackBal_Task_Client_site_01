@@ -34,7 +34,7 @@ const NavBar = () => {
   );
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 dark:bg-gray-900">
+      <div class="px-4 py-3 mx-auto sm:max-w-xl md:max-w-full lg:max-w-[1400px] md:px-24 lg:px-8 dark:bg-gray-900">
         <div class="relative flex items-center justify-between dark:text-white">
           <a
             href="/"
