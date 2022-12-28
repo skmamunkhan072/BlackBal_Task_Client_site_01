@@ -6,8 +6,8 @@ const MainLayout = () => {
   return (
     <div>
       <NavBar />
-      <div className="dark:bg-slate-800">
-        <div className="w-[1400px] mx-auto ">
+      <div className="dark:bg-gray-800 py-10">
+        <div className="max-w-[1400px] bg-gray-800 dark:text-white mx-auto px-5">
           <Outlet />
         </div>
       </div>

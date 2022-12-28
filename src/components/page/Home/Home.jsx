@@ -1,9 +1,10 @@
 import React from "react";
+import AddTask from "../AddTask/AddTask";
 
 const Home = () => {
   return (
     <div>
-      <h1>This is hoek</h1>
+      <AddTask />
     </div>
   );
 };

@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../Layouts/MainLayout/MainLayout";
-import AddTask from "../page/AddTask/AddTask";
-import Home from "../page/Home/Home/Home";
+import MainLayout from "../Layout/MainLayout/MainLayout";
+import Home from "../Page/Home/Home";
+import MyTask from "../Page/MyTask/MyTask";
 import Error from "../Shear/Error/Error";
-import MyTask from "../page/MyTask/MyTask.jsx";
-import CompletedTask from "../page/CompletedTask/CompletedTask.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -12,10 +10,11 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <Error />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/add-task", element: <AddTask /> },
+      {
+        path: "/",
+        element: <Home />,
+      },
       { path: "/media", element: <MyTask /> },
-      { path: "/completed-task", element: <CompletedTask /> },
     ],
   },
 ]);

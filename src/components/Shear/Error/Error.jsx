@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Error = () => {
   return (
-    <section className="h-[100vh] flex items-center h-full sm:p-16 dark:bg-gray-900 dark:text-gray-100 ">
+    <section className="flex items-center h-full sm:p-16 dark:bg-gray-900 dark:text-gray-100 h-[100vh]">
       <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8 space-y-8 text-center sm:max-w-md">
         <svg
           xmlns="http://www.w3.org/2000/svg"
