@@ -3,6 +3,8 @@ import MainLayout from "../Layouts/MainLayout/MainLayout";
 import AddTask from "../page/AddTask/AddTask";
 import Home from "../page/Home/Home/Home";
 import Error from "../Shear/Error/Error";
+import MyTask from "../page/MyTask/MyTask.jsx";
+import CompletedTask from "../page/CompletedTask/CompletedTask.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +14,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/add-task", element: <AddTask /> },
+      { path: "/media", element: <MyTask /> },
+      { path: "/completed-task", element: <CompletedTask /> },
     ],
   },
 ]);
