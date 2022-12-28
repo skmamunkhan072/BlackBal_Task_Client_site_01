@@ -5,12 +5,17 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { app } from "../../Firebase/Firebase.config";
 import { useState } from "react";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 const AuthContextProvaider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -27,6 +32,21 @@ const AuthContextProvaider = ({ children }) => {
     return updateProfile(auth.currentUser, userInfo);
   };
 
+  // handle google sing Up
+  const handelGoogleSingUpUser = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider);
+  };
+  // handel user sing Out
+  const handelSingOutUser = () => {
+    return signOut(auth);
+  };
+
+  // login user email and password
+  const handelLoginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
   // user tack
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -37,10 +57,14 @@ const AuthContextProvaider = ({ children }) => {
     return () => unsubscribe();
   }, []);
   const authInfo = {
-    handelUserCreate,
-    updateUser,
     loading,
     setLoading,
+    user,
+    handelUserCreate,
+    updateUser,
+    handelGoogleSingUpUser,
+    handelSingOutUser,
+    handelLoginUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

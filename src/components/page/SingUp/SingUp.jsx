@@ -5,11 +5,19 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import SmallSpinner from "../../Shear/SmallSpinner/SmallSpinner";
+import { BsGoogle } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const SingUp = () => {
-  const { handelUserCreate, updateUser, loading, setLoading } =
-    useContext(AuthContext);
+  const {
+    handelUserCreate,
+    updateUser,
+    handelGoogleSingUpUser,
+    loading,
+    setLoading,
+  } = useContext(AuthContext);
   const [errorMessage, SetErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   // handel singUp form
   const handelSingUpForm = (e) => {
@@ -32,6 +40,22 @@ const SingUp = () => {
             .then((userCredential) => {
               toast.success("🦄 Sing up successful!", {
                 position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+
+              navigate("/");
+            })
+            .catch((error) => {
+              const errorMessage = error.message;
+              console.log(errorMessage);
+              toast.error("🦄 error", {
+                position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -40,10 +64,7 @@ const SingUp = () => {
                 progress: undefined,
                 theme: "dark",
               });
-            })
-            .catch((error) => {
-              const errorMessage = error.message;
-              console.log(errorMessage);
+              setLoading(false);
             });
         }
       })
@@ -53,9 +74,60 @@ const SingUp = () => {
         const message = errorMessage.split(":")[1];
         if (message) {
           SetErrorMessage(message);
+          setLoading(false);
+          toast.error(`🦄 ${message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
       });
   };
+
+  // handelGoogleSingUp
+  const handelGoogleSingUp = () => {
+    handelGoogleSingUpUser()
+      .then((user) => {
+        console.log(user);
+        if (user) {
+          toast.success("🦄 Sing up successful!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        const message = errorMessage.split(":")[1];
+        if (message) {
+          SetErrorMessage(message);
+          setLoading(false);
+          toast.error(`🦄 ${message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
+  };
+
   return (
     <div className="min-h-[80.7vh]">
       <div>
@@ -66,20 +138,29 @@ const SingUp = () => {
           <h1 className="text-center text-2xl font-bold text-gray-400 mb-5">
             SingUp
           </h1>
+          <div className="flex justify-center items-center">
+            <Button
+              onClick={handelGoogleSingUp}
+              gradientDuoTone="purpleToPink"
+              className="mt-5 rounded-lg "
+            >
+              <BsGoogle />
+            </Button>
+          </div>
           <div class="relative z-0 mb-6 w-full group">
             <input
               type="name"
               name="name"
               id="floating_repeat_name"
               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+              placeholder=""
               required
             />
             <label
               for="floating_repeat_name"
               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Confirm password
+              Enter your Name
             </label>
           </div>
           <div class="relative z-0 mb-6 w-full group">
@@ -95,7 +176,7 @@ const SingUp = () => {
               for="floating_repeat_email"
               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Your Email
+              Enter Your Email
             </label>
           </div>
           <div class="relative z-0  w-full group">
@@ -111,10 +192,11 @@ const SingUp = () => {
               for="floating_repeat_password"
               class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              password
+              Enter password
             </label>
           </div>
           <p className="mb-6 text-red-500">{errorMessage}</p>
+
           <div className="flex justify-start items-center">
             {loading ? (
               <Button gradientDuoTone="purpleToPink" className="mt-5">

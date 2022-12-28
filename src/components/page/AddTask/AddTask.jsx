@@ -1,8 +1,11 @@
 import { Button } from "flowbite-react";
 import React, { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { HandelImgHost } from "../../Hooks/AllFunction/AllFunction";
 
 const AddTask = () => {
+  const { user } = useContext(AuthContext);
   const [uploadFile, setUploadFile] = useState("");
   const [imgHostLink] = HandelImgHost(uploadFile);
 
@@ -16,10 +19,11 @@ const AddTask = () => {
     const addTaskInfoData = {
       taskMessage,
       uplodeImgLink,
+      userEmail: user?.email,
     };
   };
   return (
-    <div className="min-h-[80.7vh]">
+    <div className="min-h-[80.7vh] ">
       <h1 className="text-2xl font-bold">Add your Task</h1>
       <div className="pt-10">
         <form onSubmit={handelTaskForm}>
