@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthContextProvaider from "./Components/Context/AuthContextProvaider/AuthContextProvaider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthContextProvaider>
     <React.StrictMode>
       <App />
+      <ToastContainer />
     </React.StrictMode>
   </AuthContextProvaider>
 );
