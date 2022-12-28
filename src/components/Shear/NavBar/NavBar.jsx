@@ -1,9 +1,12 @@
 import { Avatar } from "flowbite-react";
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { helo } = useContext(AuthContext);
 
   const navBarMenu = (
     <>
@@ -21,6 +24,30 @@ const NavBar = () => {
           class="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
         >
           My Task
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/sing-up"
+          class="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+        >
+          Sing Up
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/login"
+          class="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+        >
+          Login
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/log-out"
+          class="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+        >
+          LogOut
         </Link>
       </li>
       <li className="cursor-pointer">
