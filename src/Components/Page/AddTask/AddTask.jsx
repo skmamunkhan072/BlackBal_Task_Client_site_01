@@ -36,7 +36,7 @@ const AddTask = () => {
       userEmail: user?.email,
     };
 
-    fetch(`${server_url}/add-task`, {
+    fetch(`${server_url}add-task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
