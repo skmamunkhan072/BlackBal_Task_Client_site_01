@@ -5,11 +5,14 @@ import SmallSpinner from "../../Shear/SmallSpinner/SmallSpinner";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useToken } from "../../Hooks/UseToken/UseToken";
 
 const Login = () => {
   const { loading, setLoading, handelLoginUser } = useContext(AuthContext);
   const [errorMessage, SetErrorMessage] = useState("");
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [token] = useToken(email);
 
   // handelUserLogin
   const handelUserLogin = (e) => {
@@ -20,6 +23,7 @@ const Login = () => {
 
     handelLoginUser(email, password)
       .then((result) => {
+        setEmail(email);
         toast.success("🦄 Login successful!", {
           position: "top-center",
           autoClose: 5000,
@@ -30,7 +34,6 @@ const Login = () => {
           progress: undefined,
           theme: "dark",
         });
-        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -52,6 +55,10 @@ const Login = () => {
         }
       });
   };
+
+  if (token) {
+    navigate("/");
+  }
   return (
     <div className="min-h-[80.7vh]">
       <div>

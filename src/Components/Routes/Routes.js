@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { server_url } from "../Hooks/AllUrl/AllUrl";
 import MainLayout from "../Layout/MainLayout/MainLayout";
 import CompleteTask from "../Page/CompleteTask/CompleteTask";
 import Home from "../Page/Home/Home";
@@ -19,7 +20,16 @@ export const router = createBrowserRouter([
       },
       { path: "/sing-up", element: <SingUp /> },
       { path: "/login", element: <Login /> },
-      { path: "/media", element: <MyTask /> },
+      {
+        path: "/media",
+        element: <MyTask />,
+        // loader: fetch(`${server_url}my-task`, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     authorization: `bearer skmamunkhan072@gmail.com`,
+        //   },
+        // }),
+      },
       { path: "/complete-task", element: <CompleteTask /> },
     ],
   },

@@ -28,6 +28,8 @@ const NavBar = () => {
           progress: undefined,
           theme: "dark",
         });
+
+        localStorage.removeItem("access_Token");
       })
       .catch((error) => {
         console.log(error);

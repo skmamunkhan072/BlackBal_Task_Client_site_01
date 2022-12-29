@@ -1,6 +1,8 @@
 import { Button } from "flowbite-react";
 import React, { useState } from "react";
 import { useContext } from "react";
+import { Form, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { HandelImgHost } from "../../Hooks/AllFunction/AllFunction";
 import { server_url } from "../../Hooks/AllUrl/AllUrl";
@@ -9,6 +11,7 @@ const AddTask = () => {
   const { user } = useContext(AuthContext);
   const [uploadFile, setUploadFile] = useState("");
   const [imgHostLink] = HandelImgHost(uploadFile);
+  const navigate = useNavigate();
 
   //new date
   const defaultMonthAndDate = new Date().toLocaleString();
@@ -44,7 +47,21 @@ const AddTask = () => {
       body: JSON.stringify(addTaskInfoData),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("🦄 Task add successful!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigate("/media");
+        }
+      });
   };
   return (
     <div className="min-h-[80.7vh] ">
