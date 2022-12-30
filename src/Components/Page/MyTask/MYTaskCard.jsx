@@ -1,11 +1,17 @@
 import { Avatar, Button } from "flowbite-react";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { server_url } from "../../Hooks/AllUrl/AllUrl";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
+import { BiEdit } from "react-icons/bi";
+import { MdDeleteSweep } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
+import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 
 const MYTaskCard = ({ data }) => {
+  const { setEditTaskDataLoad, loading } = useContext(AuthContext);
   // console.log(data);
   const navigeate = useNavigate();
   const [smallCard, setSmallCard] = useState(false);
@@ -47,7 +53,23 @@ const MYTaskCard = ({ data }) => {
         }
       });
   };
+  // Edit Task function
+  const handelEditTask = (id) => {
+    fetch(`${server_url}task-edit/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEditTaskDataLoad(data);
+        navigeate("/");
+      });
+  };
 
+  // delete task function handel
+  const handelDeleteTask = (id) => {
+    console.log("Deleted", id);
+  };
+  if (loading) {
+    return <LargeSpinner />;
+  }
   return (
     <div>
       <div className="p-5 pb-14 rounded-lg dark:bg-gray-900 shadow-lg border dark:border-0 text-gray-700 relative h-[100%]">
@@ -70,20 +92,30 @@ const MYTaskCard = ({ data }) => {
             </div>
             <div
               onClick={() => setSmallCard(!smallCard)}
-              className="ml-5  p-1 rounded-full cursor-pointer"
+              className="ml-5  p-2 rounded-full cursor-pointer hover:bg-gray-800"
             >
-              <BsThreeDotsVertical className="text-2xl" />
+              <BsThreeDots className="text-2xl" />
             </div>
           </div>
         </div>
 
         <div
-          className={`text-white absolute top-20 right-10 border w-[200px] bg-gray-600 py-10 rounded-lg ${
+          className={`text-white absolute top-14 px-2 pt-3  right-8 w-[150px] h-[150px] bg-gray-800  rounded-lg ${
             smallCard ? "" : "hidden text-start"
           }`}
         >
-          <h1 className="text-start ml-3 py-2 cursor-pointer">Edit</h1>
-          <h1 className="text-start ml-3 py-2 cursor-pointer">Delete</h1>
+          <h1
+            onClick={() => handelEditTask(_id)}
+            className="text-start pl-1 py-1 cursor-pointer flex justify-start items-center hover:bg-gray-500 rounded-[0.3rem] mb-2"
+          >
+            <BiEdit className="text-2xl mr-2" /> Edit
+          </h1>
+          <h1
+            onClick={() => handelDeleteTask(_id)}
+            className="text-start pl-1 py-1 cursor-pointer flex justify-start items-center hover:bg-gray-500 rounded-[0.3rem] mb-2"
+          >
+            <MdDeleteSweep className="text-2xl mr-2" /> Delete
+          </h1>
         </div>
 
         <div className="text-start py-5 dark:text-gray-400">

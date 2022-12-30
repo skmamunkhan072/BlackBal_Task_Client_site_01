@@ -20,6 +20,7 @@ const provider = new GoogleAuthProvider();
 const AuthContextProvaider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [editTaskDataLoad, setEditTaskDataLoad] = useState(null);
 
   // email & password user create
   const handelUserCreate = (email, password) => {
@@ -65,6 +66,8 @@ const AuthContextProvaider = ({ children }) => {
     handelGoogleSingUpUser,
     handelSingOutUser,
     handelLoginUser,
+    editTaskDataLoad,
+    setEditTaskDataLoad,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

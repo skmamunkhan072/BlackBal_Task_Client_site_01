@@ -9,7 +9,8 @@ import { server_url } from "../../Hooks/AllUrl/AllUrl";
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 
 const AddTask = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, editTaskDataLoad, setEditTaskDataLoad } =
+    useContext(AuthContext);
   const [uploadFile, setUploadFile] = useState("");
   const [imgHostLink] = HandelImgHost(uploadFile);
   const navigate = useNavigate();
@@ -22,46 +23,85 @@ const AddTask = () => {
     minute: "2-digit",
   });
 
-  console.log(newDate, newTime);
+  console.log(editTaskDataLoad);
+  // console.log(newDate, newTime);
+
   // handel submit form function
   const handelTaskForm = (e) => {
     e.preventDefault();
     const taskMessage = e.target.message.value;
     const taskTitle = e.target.title.value;
     const uploadImgLink = imgHostLink?.display_url;
-    const addTaskInfoData = {
-      taskMessage,
-      uploadImgLink,
-      taskTitle,
-      newDate,
-      newTime,
-      userEmail: user?.email,
-      complete: false,
-    };
-    fetch(`${server_url}add-task`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(addTaskInfoData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          toast.success("🦄 Task add successful!", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          });
-          navigate("/media");
-        }
-      });
+    if (!editTaskDataLoad) {
+      const addTaskInfoData = {
+        taskMessage,
+        uploadImgLink,
+        taskTitle,
+        newDate,
+        newTime,
+        userEmail: user?.email,
+        complete: false,
+      };
+      fetch(`${server_url}add-task`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(addTaskInfoData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("🦄 Task add successful!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            navigate("/media");
+          }
+        });
+    } else {
+      const editData = {
+        id: editTaskDataLoad?._id,
+        taskMessage,
+        taskTitle,
+        uploadImgLink: uploadImgLink
+          ? uploadImgLink
+          : editTaskDataLoad?.uploadImgLink,
+      };
+      console.log("hello", editData);
+      fetch(`${server_url}task-edit`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editData),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            setEditTaskDataLoad("");
+            toast.success("🦄 Task add successful!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            navigate("/media");
+          }
+        });
+    }
   };
+
   return (
     <div className="min-h-[80.7vh] ">
       <h1 className="text-2xl font-bold">Add your Task</h1>
@@ -81,6 +121,9 @@ const AddTask = () => {
               class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Add your task title....."
               required
+              defaultValue={
+                editTaskDataLoad?.taskTitle ? editTaskDataLoad?.taskTitle : ""
+              }
             />
           </div>
 
@@ -99,6 +142,11 @@ const AddTask = () => {
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 resize-none"
                 placeholder="Enter your message..."
                 required
+                defaultValue={
+                  editTaskDataLoad?.taskMessage
+                    ? editTaskDataLoad?.taskMessage
+                    : ""
+                }
               ></textarea>
             </div>
             {loading ? (
@@ -166,13 +214,23 @@ const AddTask = () => {
             )}
           </div>
           <div>
-            <Button
-              gradientDuoTone="purpleToPink"
-              type="submit"
-              className="px-5 mt-5"
-            >
-              Submit
-            </Button>
+            {editTaskDataLoad ? (
+              <Button
+                gradientDuoTone="purpleToPink"
+                type="submit"
+                className="px-5 mt-5"
+              >
+                Edit
+              </Button>
+            ) : (
+              <Button
+                gradientDuoTone="purpleToPink"
+                type="submit"
+                className="px-5 mt-5"
+              >
+                Submit
+              </Button>
+            )}
           </div>
         </form>
       </div>

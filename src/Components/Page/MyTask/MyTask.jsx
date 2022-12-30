@@ -13,6 +13,7 @@ const MyTask = () => {
     isLoading,
     error,
     data: taskData = [],
+    refetch,
   } = useQuery({
     queryKey: ["my-task"],
     queryFn: async () => {
@@ -35,6 +36,7 @@ const MyTask = () => {
     minute: "2-digit",
   });
 
+  refetch();
   // loading
   if (loading || isLoading) {
     return <LargeSpinner />;
