@@ -11,7 +11,7 @@ import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProva
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 
 const MYTaskCard = ({ data, refetch }) => {
-  const { setEditTaskDataLoad, loading } = useContext(AuthContext);
+  const { setEditTaskDataLoad, loading, setLoading } = useContext(AuthContext);
   // console.log(data);
   const navigeate = useNavigate();
   const [smallCard, setSmallCard] = useState(false);
@@ -26,7 +26,7 @@ const MYTaskCard = ({ data, refetch }) => {
     complete,
   } = data;
   const handelCompletTask = (id) => {
-    console.log(id);
+    setLoading(true);
     fetch(`${server_url}task-complete-no-complete`, {
       method: "PUT",
       headers: {
@@ -50,11 +50,13 @@ const MYTaskCard = ({ data, refetch }) => {
             theme: "dark",
           });
           navigeate("/complete-task");
+          setLoading(false);
         }
       });
   };
   // Edit Task function
   const handelEditTask = (id) => {
+    setLoading(true);
     fetch(`${server_url}task-edit/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -66,12 +68,13 @@ const MYTaskCard = ({ data, refetch }) => {
         refetch();
         setEditTaskDataLoad(data);
         navigeate("/");
+        setLoading(false);
       });
   };
 
   // delete task function handel
   const handelDeleteTask = (id) => {
-    console.log("Deleted", id);
+    setLoading(true);
     fetch(`${server_url}task-delete/${id}`, {
       method: "DELETE",
       headers: {
@@ -93,6 +96,7 @@ const MYTaskCard = ({ data, refetch }) => {
             progress: undefined,
             theme: "dark",
           });
+          setLoading(false);
         }
       });
   };
