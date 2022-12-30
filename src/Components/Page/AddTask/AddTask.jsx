@@ -9,7 +9,7 @@ import { server_url } from "../../Hooks/AllUrl/AllUrl";
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 
 const AddTask = () => {
-  const { user, loading, editTaskDataLoad, setEditTaskDataLoad } =
+  const { user, loading, setLoading, editTaskDataLoad, setEditTaskDataLoad } =
     useContext(AuthContext);
   const [uploadFile, setUploadFile] = useState("");
   const [imgHostLink] = HandelImgHost(uploadFile);
@@ -27,6 +27,7 @@ const AddTask = () => {
 
   // handel submit form function
   const handelTaskForm = (e) => {
+    setLoading(true);
     e.preventDefault();
     const taskMessage = e.target.message.value;
     const taskTitle = e.target.title.value;
@@ -103,6 +104,7 @@ const AddTask = () => {
           });
       }
     } else {
+      setLoading(false);
       navigate("/login");
     }
   };
