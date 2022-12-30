@@ -110,7 +110,6 @@ const AddTask = () => {
       navigate("/login");
     }
   };
-
   // handelEnterKey
   useEffect(() => {
     const keyDownHandler = (event) => {
@@ -121,7 +120,6 @@ const AddTask = () => {
         const taskMessage = document.getElementById("message").value;
         const taskTitle = document.getElementById("task-title").value;
         const uploadImgLink = imgHostLink?.display_url;
-        console.log(editTaskDataLoad);
         if (user) {
           if (!editTaskDataLoad) {
             const addTaskInfoData = {
@@ -158,6 +156,7 @@ const AddTask = () => {
                 }
               });
           } else {
+            console.log(editTaskDataLoad?._id);
             const editData = {
               id: editTaskDataLoad?._id,
               taskMessage,
@@ -203,7 +202,7 @@ const AddTask = () => {
     return () => {
       document.removeEventListener("keydown", keyDownHandler);
     };
-  }, [user, editTaskDataLoad]);
+  }, [user, editTaskDataLoad, imgHostLink]);
 
   return (
     <section className="min-h-[80.7vh] pt-20">
