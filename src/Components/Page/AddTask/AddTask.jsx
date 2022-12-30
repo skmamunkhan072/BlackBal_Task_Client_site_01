@@ -108,7 +108,7 @@ const AddTask = () => {
   };
 
   return (
-    <div className="min-h-[80.7vh] pt-20">
+    <section className="min-h-[80.7vh] pt-20">
       <h1 className="text-2xl font-bold">Add your Task</h1>
       <div className="pt-10">
         <form onSubmit={handelTaskForm}>
@@ -243,7 +243,7 @@ const AddTask = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

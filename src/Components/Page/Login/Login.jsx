@@ -8,10 +8,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToken } from "../../Hooks/UseToken/UseToken";
 
 const Login = () => {
-  const { loading, setLoading, handelLoginUser } = useContext(AuthContext);
+  const { loading, setLoading, handelLoginUser, handelGoogleSingUpUser } =
+    useContext(AuthContext);
   const [errorMessage, SetErrorMessage] = useState("");
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(null);
   const [token] = useToken(email);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -58,11 +59,51 @@ const Login = () => {
       });
   };
 
+  // handelGoogleSingUp
+  const handelGoogleSingUp = () => {
+    handelGoogleSingUpUser()
+      .then((user) => {
+        console.log(user?.user?.email);
+
+        if (user) {
+          setEmail(user?.user?.email);
+          toast.success("🦄 Sing up successful!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        const message = errorMessage.split(":")[1];
+        if (message) {
+          SetErrorMessage(message);
+          setLoading(false);
+          toast.error(`🦄 ${message}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
+  };
+
   if (token) {
     navigate(from, { replace: true });
   }
   return (
-    <div className="min-h-[80.7vh]">
+    <section className="min-h-[80.7vh]">
       <div>
         <form
           onSubmit={handelUserLogin}
@@ -72,7 +113,11 @@ const Login = () => {
             Login
           </h1>
           <div className="flex justify-center items-center">
-            <Button gradientDuoTone="purpleToPink" className="mt-5 rounded-lg ">
+            <Button
+              onClick={handelGoogleSingUp}
+              gradientDuoTone="purpleToPink"
+              className="mt-5 rounded-lg "
+            >
               <BsGoogle />
             </Button>
           </div>
@@ -139,7 +184,7 @@ const Login = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

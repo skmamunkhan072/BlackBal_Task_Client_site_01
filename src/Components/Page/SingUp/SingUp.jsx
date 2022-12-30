@@ -41,7 +41,6 @@ const SingUp = () => {
           const updeInfo = {
             displayName: name,
           };
-          console.log(user.email);
           updateUser(updeInfo)
             .then((userCredential) => {
               toast.success("🦄 Sing up successful!", {
@@ -101,6 +100,7 @@ const SingUp = () => {
         console.log(user?.user?.email);
 
         if (user) {
+          setUserEmail(user?.user?.email);
           toast.success("🦄 Sing up successful!", {
             position: "top-center",
             autoClose: 2000,
@@ -111,7 +111,6 @@ const SingUp = () => {
             progress: undefined,
             theme: "dark",
           });
-          navigate(from, { replace: true });
         }
       })
       .catch((error) => {
@@ -134,8 +133,12 @@ const SingUp = () => {
       });
   };
 
+  // navigate
+  if (token) {
+    navigate(from, { replace: true });
+  }
   return (
-    <div className="min-h-[80.7vh]">
+    <section className="min-h-[80.7vh]">
       <div>
         <form
           onSubmit={handelSingUpForm}
@@ -231,7 +234,7 @@ const SingUp = () => {
           </div>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

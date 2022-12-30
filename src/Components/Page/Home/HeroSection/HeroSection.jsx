@@ -27,9 +27,11 @@ const HeroSection = () => {
             <span className="inline-block text-fuchsia-700 ml-1">is real</span>
           </h2>
           <p className="pr-5 mb-5 text-base text-gray-600 md:text-lg">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae. explicabo.
+            You can write your daily work on this website. We will keep it
+            carefully and return it to you later. If you don't have an account
+            here, you can't add anything. If you already have an account then
+            log in and if you don't have an account then sign up this website
+            has dark and light themes.
           </p>
         </div>
       </div>

@@ -129,8 +129,8 @@ const MYTaskCard = ({ data, refetch }) => {
     return <LargeSpinner />;
   }
   return (
-    <div>
-      <div className="p-5 pb-14 rounded-lg dark:bg-gray-900 shadow-lg border dark:border-0 text-gray-700 relative h-[100%]">
+    <section>
+      <div className="p-5 pb-14 rounded-lg dark:bg-gray-900 shadow-lg border dark:border-0 text-gray-700 relative h-[100%] bg-gray-100">
         <div className="flex justify-between items-start">
           <div>
             <Avatar
@@ -150,7 +150,7 @@ const MYTaskCard = ({ data, refetch }) => {
             </div>
             <div
               onClick={() => setSmallCard(!smallCard)}
-              className="ml-5  p-2 rounded-full cursor-pointer hover:bg-gray-800"
+              className="ml-5  p-2 rounded-full cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800"
             >
               <BsThreeDots className="text-2xl" />
             </div>
@@ -206,7 +206,7 @@ const MYTaskCard = ({ data, refetch }) => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

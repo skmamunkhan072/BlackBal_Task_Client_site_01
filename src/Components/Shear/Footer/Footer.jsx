@@ -36,8 +36,11 @@ const Footer = () => {
               Task ELEMENTS
             </h6>
             <p>
-              Here you can use rows and columns to organize your footer content.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              You can write your daily work on this website. We will keep it
+              carefully and return it to you later. If you don't have an account
+              here, you can't add anything. If you already have an account then
+              log in and if you don't have an account then sign up this website
+              has dark and light themes.
             </p>
           </div>
           <div class="">
