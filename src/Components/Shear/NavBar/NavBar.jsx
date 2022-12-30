@@ -63,6 +63,14 @@ const NavBar = () => {
           My Task
         </Link>
       </li>
+      <li>
+        <Link
+          to="/complete-task"
+          class="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+        >
+          Complete Task
+        </Link>
+      </li>
 
       {user ? (
         <>

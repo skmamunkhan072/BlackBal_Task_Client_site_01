@@ -28,8 +28,6 @@ const AddTask = () => {
     const taskMessage = e.target.message.value;
     const taskTitle = e.target.title.value;
     const uploadImgLink = imgHostLink?.display_url;
-    console.log(taskMessage, uploadImgLink);
-
     const addTaskInfoData = {
       taskMessage,
       uploadImgLink,
@@ -37,6 +35,7 @@ const AddTask = () => {
       newDate,
       newTime,
       userEmail: user?.email,
+      complete: false,
     };
 
     fetch(`${server_url}add-task`, {
