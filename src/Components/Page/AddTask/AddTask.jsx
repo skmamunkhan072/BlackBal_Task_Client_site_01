@@ -7,10 +7,12 @@ import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProva
 import { HandelImgHost } from "../../Hooks/AllFunction/AllFunction";
 import { server_url } from "../../Hooks/AllUrl/AllUrl";
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
+import SmallSpinner from "../../Shear/SmallSpinner/SmallSpinner";
 
 const AddTask = () => {
   const { user, loading, setLoading, editTaskDataLoad, setEditTaskDataLoad } =
     useContext(AuthContext);
+  const [smallSpinner, setSmallSpinner] = useState(false);
   const [uploadFile, setUploadFile] = useState("");
   const [imgHostLink] = HandelImgHost(uploadFile);
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const AddTask = () => {
 
   // handel submit form function
   const handelTaskForm = (e) => {
-    setLoading(true);
+    setSmallSpinner(true);
     e.preventDefault();
     const taskMessage = e.target.message.value;
     const taskTitle = e.target.title.value;
@@ -104,7 +106,7 @@ const AddTask = () => {
           });
       }
     } else {
-      setLoading(false);
+      setSmallSpinner(false);
       navigate("/login");
     }
   };
@@ -223,23 +225,31 @@ const AddTask = () => {
             )}
           </div>
           <div>
-            {editTaskDataLoad ? (
-              <Button
-                gradientDuoTone="purpleToPink"
-                type="submit"
-                className="px-5 mt-5"
-              >
-                Edit
+            {smallSpinner ? (
+              <Button gradientDuoTone="purpleToPink" className="mt-5">
+                <SmallSpinner />
               </Button>
             ) : (
               <>
-                <Button
-                  gradientDuoTone="purpleToPink"
-                  type="submit"
-                  className="px-5 mt-5"
-                >
-                  Submit
-                </Button>
+                {editTaskDataLoad ? (
+                  <Button
+                    gradientDuoTone="purpleToPink"
+                    type="submit"
+                    className="px-5 mt-5"
+                  >
+                    Edit
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      gradientDuoTone="purpleToPink"
+                      type="submit"
+                      className="px-5 mt-5"
+                    >
+                      Submit
+                    </Button>
+                  </>
+                )}
               </>
             )}
           </div>
