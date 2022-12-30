@@ -2,7 +2,7 @@ import React from "react";
 
 const LargeSpinner = () => {
   return (
-    <div className="flex justify-center items-center h-full w-full dark:bg-gray-900 ">
+    <div className="flex justify-center items-center h-full w-full dark:bg-gray-800 ">
       <div aria-label="Loading..." role="status">
         <svg
           className="h-20 w-20 animate-spin stroke-gray-500"

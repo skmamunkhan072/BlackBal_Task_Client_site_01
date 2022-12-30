@@ -55,7 +55,12 @@ const MYTaskCard = ({ data, refetch }) => {
   };
   // Edit Task function
   const handelEditTask = (id) => {
-    fetch(`${server_url}task-edit/${id}`)
+    fetch(`${server_url}task-edit/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         refetch();
@@ -153,7 +158,7 @@ const MYTaskCard = ({ data, refetch }) => {
         </div>
 
         <div
-          className={`text-white absolute top-14 px-2 pt-3  right-8 w-[150px] h-[150px] bg-gray-800  rounded-lg ${
+          className={`z-[99] text-white absolute top-14 px-2 pt-3  right-8 w-[150px] h-[150px] bg-gray-800  rounded-lg ${
             smallCard ? "" : "hidden text-start"
           }`}
         >

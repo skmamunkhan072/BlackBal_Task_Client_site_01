@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Footer from "../../Shear/Footer/Footer";
 import NavBar from "../../Shear/NavBar/NavBar";
 
 const MainLayout = () => {
@@ -11,6 +12,8 @@ const MainLayout = () => {
           <Outlet />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import SmallSpinner from "../../Shear/SmallSpinner/SmallSpinner";
 import { BsGoogle } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useToken } from "../../Hooks/UseToken/UseToken";
 
 const SingUp = () => {
   const {
@@ -16,8 +17,12 @@ const SingUp = () => {
     loading,
     setLoading,
   } = useContext(AuthContext);
+  const [userEmail, setUserEmail] = useState(null);
   const [errorMessage, SetErrorMessage] = useState("");
+  const [token] = useToken(userEmail);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // handel singUp form
   const handelSingUpForm = (e) => {
@@ -32,10 +37,11 @@ const SingUp = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         if (user) {
+          setUserEmail(user?.email);
           const updeInfo = {
             displayName: name,
           };
-          console.log(updeInfo);
+          console.log(user.email);
           updateUser(updeInfo)
             .then((userCredential) => {
               toast.success("🦄 Sing up successful!", {
@@ -49,11 +55,10 @@ const SingUp = () => {
                 theme: "dark",
               });
 
-              navigate("/");
+              navigate(from, { replace: true });
             })
             .catch((error) => {
               const errorMessage = error.message;
-              console.log(errorMessage);
               toast.error("🦄 error", {
                 position: "top-center",
                 autoClose: 5000,
@@ -93,7 +98,8 @@ const SingUp = () => {
   const handelGoogleSingUp = () => {
     handelGoogleSingUpUser()
       .then((user) => {
-        console.log(user);
+        console.log(user?.user?.email);
+
         if (user) {
           toast.success("🦄 Sing up successful!", {
             position: "top-center",
@@ -105,7 +111,7 @@ const SingUp = () => {
             progress: undefined,
             theme: "dark",
           });
-          navigate("/");
+          navigate(from, { replace: true });
         }
       })
       .catch((error) => {
@@ -211,6 +217,17 @@ const SingUp = () => {
                 Sing Up
               </Button>
             )}
+          </div>
+          <div>
+            <p className="mt-3">
+              If you don't have an account
+              <Link className="text-emerald-500	ml-3" to="/login">
+                Please Sing Up
+              </Link>
+            </p>
+            <small className="text-start mt-2 text-teal-400 cursor-pointer	">
+              Forgot Password ?
+            </small>
           </div>
         </form>
       </div>

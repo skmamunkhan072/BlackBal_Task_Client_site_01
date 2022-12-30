@@ -4,7 +4,7 @@ import { Button } from "flowbite-react";
 import SmallSpinner from "../../Shear/SmallSpinner/SmallSpinner";
 import { BsGoogle } from "react-icons/bs";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToken } from "../../Hooks/UseToken/UseToken";
 
 const Login = () => {
@@ -13,6 +13,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [token] = useToken(email);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // handelUserLogin
   const handelUserLogin = (e) => {
@@ -57,7 +59,7 @@ const Login = () => {
   };
 
   if (token) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
   return (
     <div className="min-h-[80.7vh]">
@@ -123,6 +125,17 @@ const Login = () => {
                 Login
               </Button>
             )}
+          </div>
+          <div>
+            <p className="mt-3">
+              If you don't have an account
+              <Link className="text-emerald-500	ml-3" to="/sing-up">
+                Please Sing Up
+              </Link>
+            </p>
+            <small className="text-start mt-2 text-teal-400 cursor-pointer	">
+              Forgot Password ?
+            </small>
           </div>
         </form>
       </div>

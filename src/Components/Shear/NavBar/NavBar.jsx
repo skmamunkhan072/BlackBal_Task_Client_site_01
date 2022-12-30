@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import { CiDark } from "react-icons/ci";
 import { BiSun } from "react-icons/bi";
+import "./NavBar.css";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,7 +51,7 @@ const NavBar = () => {
       <li>
         <Link
           to="/"
-          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white bg-black"
+          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white bg-black fond-bold"
         >
           Home
         </Link>
@@ -58,7 +59,7 @@ const NavBar = () => {
       <li>
         <Link
           to="/media"
-          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white fond-bold"
         >
           My Task
         </Link>
@@ -66,7 +67,7 @@ const NavBar = () => {
       <li>
         <Link
           to="/complete-task"
-          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+          className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white fond-bold"
         >
           Complete Task
         </Link>
@@ -77,7 +78,7 @@ const NavBar = () => {
           <li>
             <span
               onClick={handelUserLogOut}
-              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white cursor-pointer"
+              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white cursor-pointer fond-bold"
             >
               Sing Out
             </span>
@@ -88,7 +89,7 @@ const NavBar = () => {
           <li>
             <Link
               to="/sing-up"
-              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white fond-bold"
             >
               Sing Up
             </Link>
@@ -96,7 +97,7 @@ const NavBar = () => {
           <li>
             <Link
               to="/login"
-              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+              className="block py-4 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-gray-500 md:p-0 dark:text-white fond-bold"
             >
               Login
             </Link>
@@ -242,6 +243,7 @@ const NavBar = () => {
         </div>
         {sideMenu && (
           <div
+            id="side-menu"
             className={`dark:text-white absolute top-15 right-10 bg-white dark:bg-gray-900 shadow-lg pl-3 text-start pb-4 w-[200px] rounded-b-lg ${
               sideMenu ? "" : "hidden"
             }`}
