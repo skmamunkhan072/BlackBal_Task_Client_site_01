@@ -79,7 +79,6 @@ const AddTask = () => {
             ? uploadImgLink
             : editTaskDataLoad?.uploadImgLink,
         };
-        console.log("hello", editData);
         fetch(`${server_url}task-edit`, {
           method: "PUT",
           headers: {
@@ -116,13 +115,13 @@ const AddTask = () => {
   useEffect(() => {
     const keyDownHandler = (event) => {
       if (event.key === "Enter") {
+        setEditTaskDataLoad("");
         setSmallSpinner(true);
         event.preventDefault();
         const taskMessage = document.getElementById("message").value;
         const taskTitle = document.getElementById("task-title").value;
-        console.log(taskMessage, "-----", taskTitle);
         const uploadImgLink = imgHostLink?.display_url;
-
+        console.log(editTaskDataLoad);
         if (user) {
           if (!editTaskDataLoad) {
             const addTaskInfoData = {
@@ -204,7 +203,7 @@ const AddTask = () => {
     return () => {
       document.removeEventListener("keydown", keyDownHandler);
     };
-  }, [user]);
+  }, [user, editTaskDataLoad]);
 
   return (
     <section className="min-h-[80.7vh] pt-20">
