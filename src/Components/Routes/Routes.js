@@ -23,26 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/media",
         element: <MyTask />,
-        loader: async () => {
-          return fetch(`${server_url}my-task`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `bearer ${localStorage.getItem("access_Token")}`,
-            },
-          });
-        },
       },
       {
         path: "/complete-task",
         element: <CompleteTask />,
-        loader: async () => {
-          return fetch(`${server_url}complete-task`, {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `bearer ${localStorage.getItem("access_Token")}`,
-            },
-          });
-        },
       },
     ],
   },

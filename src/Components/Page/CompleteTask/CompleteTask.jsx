@@ -1,9 +1,32 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { server_url } from "../../Hooks/AllUrl/AllUrl";
+import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 import MYTaskCard from "../MyTask/MYTaskCard";
 
 const CompleteTask = () => {
-  const taskData = useLoaderData();
+  // complete Task data load server
+  const {
+    data: taskData = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["complete-task"],
+    queryFn: async () => {
+      const res = await fetch(`${server_url}complete-task`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access_Token")}`,
+        },
+      });
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <LargeSpinner />;
+  }
   return (
     <div className="min-h-[80.7vh]">
       <h1 className="text-2xl text-center font-bold pb-5">ComPlete Task</h1>

@@ -1,13 +1,32 @@
 import React from "react";
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 import MYTaskCard from "./MYTaskCard";
+import { useQuery } from "@tanstack/react-query";
+import { server_url } from "../../Hooks/AllUrl/AllUrl";
 
 const MyTask = () => {
-  const taskData = useLoaderData();
   const { loading } = useContext(AuthContext);
+  // my task data load server function
+  const {
+    isLoading,
+    error,
+    data: taskData = [],
+  } = useQuery({
+    queryKey: ["my-task"],
+    queryFn: async () => {
+      const res = await fetch(`${server_url}my-task`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("access_Token")}`,
+        },
+      });
+
+      const data = await res.json();
+      return data;
+    },
+  });
   // new date & time
   const defaultMonthAndDate = new Date().toLocaleString();
   const newDate = defaultMonthAndDate.split(",")[0].split("/").join("-");
@@ -17,10 +36,9 @@ const MyTask = () => {
   });
 
   // loading
-  if (loading || !taskData) {
+  if (loading || isLoading) {
     return <LargeSpinner />;
   }
-  console.log(newDate, newTime);
   return (
     <div className="min-h-[80.7vh]">
       <h1 className="text-2xl text-center font-bold pb-5">My Task</h1>

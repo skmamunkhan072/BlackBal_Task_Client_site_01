@@ -1,20 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import AuthContextProvaider from './Components/Context/AuthContextProvaider/AuthContextProvaider';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import AuthContextProvaider from "./Components/Context/AuthContextProvaider/AuthContextProvaider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+//  react query client
+const queryClient = new QueryClient();
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<AuthContextProvaider>
-    <React.StrictMode>
-      <App />
-      <ToastContainer />
-    </React.StrictMode>
-  </AuthContextProvaider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvaider>
+        <App />
+        <ToastContainer />
+      </AuthContextProvaider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
