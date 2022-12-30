@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContextProvaider/AuthContextProvaider";
 import LargeSpinner from "../../Shear/LargeSpinner/LargeSpinner";
 
-const MYTaskCard = ({ data }) => {
+const MYTaskCard = ({ data, refetch }) => {
   const { setEditTaskDataLoad, loading } = useContext(AuthContext);
   // console.log(data);
   const navigeate = useNavigate();
@@ -27,7 +27,7 @@ const MYTaskCard = ({ data }) => {
   } = data;
   const handelCompletTask = (id) => {
     console.log(id);
-    fetch(`${server_url}complete-task`, {
+    fetch(`${server_url}task-complete-no-complete`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -58,6 +58,7 @@ const MYTaskCard = ({ data }) => {
     fetch(`${server_url}task-edit/${id}`)
       .then((res) => res.json())
       .then((data) => {
+        refetch();
         setEditTaskDataLoad(data);
         navigeate("/");
       });
@@ -66,6 +67,58 @@ const MYTaskCard = ({ data }) => {
   // delete task function handel
   const handelDeleteTask = (id) => {
     console.log("Deleted", id);
+    fetch(`${server_url}task-delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          refetch();
+          toast.success("🦄 Task add successful!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
+  };
+
+  // Task No complete function add
+  const handelNOCompleteTask = (id) => {
+    fetch(`${server_url}task-complete-no-complete`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${localStorage.getItem("access_Token")}`,
+      },
+      body: JSON.stringify({ id, complete: false }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.acknowledged) {
+          refetch();
+          toast.success("🦄 Task complete successful!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigeate("/media");
+        }
+      });
   };
   if (loading) {
     return <LargeSpinner />;
@@ -104,12 +157,14 @@ const MYTaskCard = ({ data }) => {
             smallCard ? "" : "hidden text-start"
           }`}
         >
-          <h1
-            onClick={() => handelEditTask(_id)}
-            className="text-start pl-1 py-1 cursor-pointer flex justify-start items-center hover:bg-gray-500 rounded-[0.3rem] mb-2"
-          >
-            <BiEdit className="text-2xl mr-2" /> Edit
-          </h1>
+          {complete === false && (
+            <h1
+              onClick={() => handelEditTask(_id)}
+              className="text-start pl-1 py-1 cursor-pointer flex justify-start items-center hover:bg-gray-500 rounded-[0.3rem] mb-2"
+            >
+              <BiEdit className="text-2xl mr-2" /> Edit
+            </h1>
+          )}
           <h1
             onClick={() => handelDeleteTask(_id)}
             className="text-start pl-1 py-1 cursor-pointer flex justify-start items-center hover:bg-gray-500 rounded-[0.3rem] mb-2"
@@ -133,6 +188,15 @@ const MYTaskCard = ({ data }) => {
               className="px-2 mt-5"
             >
               Complete Task
+            </Button>
+          )}
+          {complete === true && (
+            <Button
+              onClick={() => handelNOCompleteTask(_id)}
+              gradientDuoTone="purpleToPink"
+              className="px-2 mt-5"
+            >
+              NO Complete
             </Button>
           )}
         </div>

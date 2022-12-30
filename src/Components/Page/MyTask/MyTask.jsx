@@ -47,7 +47,7 @@ const MyTask = () => {
       {taskData.length ? (
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {taskData.map((data) => (
-            <MYTaskCard data={data} />
+            <MYTaskCard refetch={refetch} data={data} />
           ))}
         </div>
       ) : (
