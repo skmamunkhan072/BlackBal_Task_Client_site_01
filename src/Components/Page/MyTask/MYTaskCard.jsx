@@ -6,7 +6,7 @@ import { server_url } from "../../Hooks/AllUrl/AllUrl";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 const MYTaskCard = ({ data }) => {
-  console.log(data);
+  // console.log(data);
   const navigeate = useNavigate();
   const [smallCard, setSmallCard] = useState(false);
 
@@ -50,7 +50,7 @@ const MYTaskCard = ({ data }) => {
 
   return (
     <div>
-      <div className="p-5 pb-14 rounded-lg dark:bg-gray-900 shadow-lg border dark:border-0 text-gray-700 relative ">
+      <div className="p-5 pb-14 rounded-lg dark:bg-gray-900 shadow-lg border dark:border-0 text-gray-700 relative h-[100%]">
         <div className="flex justify-between items-start">
           <div>
             <Avatar
