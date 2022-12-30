@@ -26,7 +26,11 @@ const CompleteTask = () => {
   });
 
   if (isLoading) {
-    return <LargeSpinner />;
+    return (
+      <div className="w-full h-[80.7vh] dark:bg-gray-900">
+        <LargeSpinner />
+      </div>
+    );
   }
   return (
     <div className="min-h-[80.7vh]">

@@ -130,7 +130,11 @@ const MYTaskCard = ({ data, refetch }) => {
       });
   };
   if (loading) {
-    return <LargeSpinner />;
+    return (
+      <div className="w-full h-[80.7vh] dark:bg-gray-900">
+        <LargeSpinner />
+      </div>
+    );
   }
   return (
     <section>
