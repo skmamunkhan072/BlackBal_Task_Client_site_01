@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer class="text-center lg:text-left dark:bg-gray-900 text-gray-400">
-      <div class="mx-6 py-10 text-center md:text-left">
-        <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="text-center lg:text-left dark:bg-gray-900 text-gray-400">
+      <div className="mx-6 py-10 text-center md:text-left">
+        <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h6
-              class="
+              className="
                   uppercase
                   font-semibold
                   mb-4
@@ -23,7 +23,7 @@ const Footer = () => {
                 focusable="false"
                 data-prefix="fas"
                 data-icon="cubes"
-                class="w-4 mr-3"
+                className="w-4 mr-3"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -43,60 +43,60 @@ const Footer = () => {
               has dark and light themes.
             </p>
           </div>
-          <div class="">
-            <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+          <div className="">
+            <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
               Products
             </h6>
-            <p class="mb-4">
-              <Link to="/" class="text-gray-600 dark:text-gray-400">
+            <p className="mb-4">
+              <Link to="/" className="text-gray-600 dark:text-gray-400">
                 Home
               </Link>
             </p>
-            <p class="mb-4">
-              <Link to="/" class="text-gray-600 dark:text-gray-400">
+            <p className="mb-4">
+              <Link to="/" className="text-gray-600 dark:text-gray-400">
                 Add Task
               </Link>
             </p>
-            <p class="mb-4">
-              <Link to="/media" class="text-gray-600 dark:text-gray-400">
+            <p className="mb-4">
+              <Link to="/media" className="text-gray-600 dark:text-gray-400">
                 My Task
               </Link>
             </p>
           </div>
-          <div class="">
-            <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+          <div className="">
+            <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
               Useful links
             </h6>
-            <p class="mb-4">
+            <p className="mb-4">
               <Link
                 to="/complete-task"
-                class="text-gray-600 dark:text-gray-400"
+                className="text-gray-600 dark:text-gray-400"
               >
                 Complete Task
               </Link>
             </p>
-            <p class="mb-4">
-              <Link to="/login" class="text-gray-600 dark:text-gray-400">
+            <p className="mb-4">
+              <Link to="/login" className="text-gray-600 dark:text-gray-400">
                 Sing in
               </Link>
             </p>
-            <p class="mb-4">
-              <Link to="/sing-up" class="text-gray-600 dark:text-gray-400">
+            <p className="mb-4">
+              <Link to="/sing-up" className="text-gray-600 dark:text-gray-400">
                 Sing Up
               </Link>
             </p>
           </div>
-          <div class="">
-            <h6 class="uppercase font-semibold mb-4 flex justify-center md:justify-start">
+          <div className="">
+            <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
               Contact
             </h6>
-            <p class="flex items-center justify-center md:justify-start mb-4">
+            <p className="flex items-center justify-center md:justify-start mb-4">
               <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
                 data-icon="home"
-                class="w-4 mr-4"
+                className="w-4 mr-4"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 576 512"
@@ -108,13 +108,13 @@ const Footer = () => {
               </svg>
               New York, NY 10012, US
             </p>
-            <p class="flex items-center justify-center md:justify-start mb-4">
+            <p className="flex items-center justify-center md:justify-start mb-4">
               <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
                 data-icon="envelope"
-                class="w-4 mr-4"
+                className="w-4 mr-4"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -126,13 +126,13 @@ const Footer = () => {
               </svg>
               info@example.com
             </p>
-            <p class="flex items-center justify-center md:justify-start mb-4">
+            <p className="flex items-center justify-center md:justify-start mb-4">
               <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
                 data-icon="phone"
-                class="w-4 mr-4"
+                className="w-4 mr-4"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -144,13 +144,13 @@ const Footer = () => {
               </svg>
               + 01 234 567 88
             </p>
-            <p class="flex items-center justify-center md:justify-start">
+            <p className="flex items-center justify-center md:justify-start">
               <svg
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"
                 data-icon="print"
-                class="w-4 mr-4"
+                className="w-4 mr-4"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -165,9 +165,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div class="text-center p-6 dark:bg-gray-900">
+      <div className="text-center p-6 dark:bg-gray-900">
         <span>© 2021 Copyright:</span>
-        <Link to="/" class="text-gray-400 font-semibold">
+        <Link to="/" className="text-gray-400 font-semibold">
           Tailwind Elements
         </Link>
       </div>
