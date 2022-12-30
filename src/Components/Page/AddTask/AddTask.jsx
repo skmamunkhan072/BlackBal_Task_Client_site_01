@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -34,6 +34,7 @@ const AddTask = () => {
     const taskMessage = e.target.message.value;
     const taskTitle = e.target.title.value;
     const uploadImgLink = imgHostLink?.display_url;
+
     if (user) {
       if (!editTaskDataLoad) {
         const addTaskInfoData = {
@@ -110,6 +111,100 @@ const AddTask = () => {
       navigate("/login");
     }
   };
+
+  // handelEnterKey
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === "Enter") {
+        setSmallSpinner(true);
+        event.preventDefault();
+        const taskMessage = document.getElementById("message").value;
+        const taskTitle = document.getElementById("task-title").value;
+        console.log(taskMessage, "-----", taskTitle);
+        const uploadImgLink = imgHostLink?.display_url;
+
+        if (user) {
+          if (!editTaskDataLoad) {
+            const addTaskInfoData = {
+              taskMessage,
+              uploadImgLink,
+              taskTitle,
+              newDate,
+              newTime,
+              userEmail: user?.email,
+              complete: false,
+            };
+            fetch(`${server_url}add-task`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `bearer ${localStorage.getItem("access_Token")}`,
+              },
+              body: JSON.stringify(addTaskInfoData),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.acknowledged) {
+                  toast.success("🦄 Task add successful!", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  });
+                  navigate("/media");
+                }
+              });
+          } else {
+            const editData = {
+              id: editTaskDataLoad?._id,
+              taskMessage,
+              taskTitle,
+              uploadImgLink: uploadImgLink
+                ? uploadImgLink
+                : editTaskDataLoad?.uploadImgLink,
+            };
+            console.log("hello", editData);
+            fetch(`${server_url}task-edit`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `bearer ${localStorage.getItem("access_Token")}`,
+              },
+              body: JSON.stringify(editData),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.acknowledged) {
+                  setEditTaskDataLoad("");
+                  toast.success("🦄 Task add successful!", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                  });
+                  navigate("/media");
+                }
+              });
+          }
+        } else {
+          setSmallSpinner(false);
+          navigate("/login");
+        }
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [user]);
 
   return (
     <section className="min-h-[80.7vh] pt-20">
